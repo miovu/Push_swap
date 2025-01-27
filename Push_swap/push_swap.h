@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miovu <miovu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chillhoneyyy <chillhoneyyy@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 17:37:19 by miovu             #+#    #+#             */
-/*   Updated: 2025/01/17 19:27:34 by miovu            ###   ########.fr       */
+/*   Updated: 2025/01/24 18:20:28 by chillhoneyy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@
 # define UP_HEX	"0123456789ABCDEF"
 # define DEC "0123456789"
 
+# include <errno.h>
+# include <limits.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
 # include <ctype.h>
 # include "libft/libft.h"
+# include "libft/printf/ft_printf.h"
 
-typedef struct s_dlist
-{
-	int				content;
-	struct s_dlist	*next;
-	struct s_dlist	*prev;
-}t_dlist;
-
+t_dlist *new_node(void *content);
+t_dlist	*assemble_stack(char **split);
+int     check_int(char *str);
+int     check_dup(t_dlist *stack);
+int     is_valid(int argc, char **argv);
+int     main(int argc, char **argv);
 
 #endif

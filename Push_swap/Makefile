@@ -1,42 +1,44 @@
-NAME = pushswap.a
-
-SOURCES = splitargs.c checkers.c
-
-SRCS_DIR = src
-LIBFT_DIR = libft
-PRINTF_DIR = libft/printf
-
-SRCS = $(wildcard $(SRCS_DIR)/*.c)
-LIBFT_SRCS = $(wildcard $(LIBFT_DIR)/*.c)
-PRINTF_SRCS = $(wildcard $(PRINTF_DIR)/*.c)
-
-LIB = $(SRCS) $(LIBFT_SRCS)
-
-PRINTF = $(SRCS) $(PRINTF_SRCS)
-
-OBJECTS = $(SOURCES:.c=.o) $(LIB:.c=.o) $(PRINTF:.c=.o)
+NAME = pushswap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFALGS = -Wall -Werror -Wextra -g
+
+SOURCES_FILES = stack.c checkers.c rules.c push_swap.c
+SRC = $(addprefix $(SRC_DIR)/, $(SOURCES_FILES))
+
+OBJECTS = $(addprefix $(OBJECTS_DIR)/, $(SOURCES_FILES:.c=.o))
+OBJECTS_DIR = objects
+SRC_DIR = srcs
+
+LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT_DIR = ./includes/libft
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS) 
-	ar rcs $@ $^
-	echo "Creating $(NAME)"
+$(NAME): $(LIBFT) $(OBJECTS) 
+	@echo "Building..."
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME)
+	@echo "Ready!"
 
-%.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJECTS_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJECTS_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-clean: 
-	rm -f $(OBJECTS)
-	echo "Removing object files"
+$(LIBFT):
+	@make -C $(LIBFT_DIR) bonus -s --no-print-directory
+
+$(OBJECTS_DIR):
+	@mkdir -p $(OBJECTS_DIR)
+
+clean:
+	@rm -rf $(OBJECTS_DIR)
+	@make -C $(LIBFT_DIR) clean -s
+	@echo "Cleaned!"
 
 fclean: clean
-	rm -f $(NAME)
-	echo "Removing $(NAME)"
+	@make -C $(LIBFT_DIR) fclean -s --no-print-directory
+	@rm -rf $(NAME)
 
 re: fclean all
-	echo "Rebuilding library" 
+	@echo "Rebuilded!"
 
 .PHONY: all clean fclean re

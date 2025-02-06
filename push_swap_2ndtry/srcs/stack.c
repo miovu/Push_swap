@@ -6,7 +6,7 @@
 /*   By: miovu <miovu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:37:20 by miovu             #+#    #+#             */
-/*   Updated: 2025/01/30 18:33:16 by miovu            ###   ########.fr       */
+/*   Updated: 2025/02/06 19:33:24 by miovu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_node	*new_node(int content)
 	if (!new)
 		return (NULL);
 	new->content = content;
+	new->target = NULL;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
@@ -27,9 +28,11 @@ t_node	*new_node(int content)
 
 void	stackadd_front(t_stack *stack, t_node *new)
 {
+	stack->size++;
 	if (!stack->head)
 	{
-		new = stack->head;
+		stack->head = new;
+		stack->tail = new;
 		new->next = NULL;
 		new->prev = NULL;
 	}
@@ -62,6 +65,42 @@ void	stack_addback(t_stack *stack, t_node *new)
 	}
 }
 
+t_node	*remove_front(t_stack *stack)
+{
+	t_node	*temp;
+	
+	temp = stack->head;
+	if (!temp)
+		return (NULL);
+	else
+	{
+		stack->head = temp->next;
+		temp->next->prev = NULL; 
+	}
+	stack->size--;
+	temp->next = NULL;
+	temp->prev = NULL;
+	return (temp);
+}
+
+t_node	*remove_back(t_stack *stack)
+{
+	t_node	*temp;
+	
+	temp = stack->tail;
+	if (!temp)
+		return (NULL);
+	else
+	{
+		stack->tail = temp->prev;
+		temp->prev->next = NULL;
+	}
+	stack->size--;
+	temp->next = NULL;
+	temp->prev = NULL;
+	return (temp);
+}
+
 void	clear_stack(t_stack	*stack)
 {
 	t_node	*temp;
@@ -77,62 +116,52 @@ void	clear_stack(t_stack	*stack)
 	stack->size = 0;
 }
 
-t_stack	assemble_stack(char **split, t_stack *stack)
+void	assemble_stack(char **split, t_stack *stack)
 {
 	t_node	*new;
-	int		num;
+	int		nbr;
 	int		i;
 
-	num = 0;
+	nbr = 0;
 	i = 0;
 	while (split[i])
 	{
-		printf("entrou no loop do assemble\n");
-		num = ft_atoi(split[i]);
-		printf("fez atoi\n");
-		new = new_node(num);
-		printf("criou o node\n");
-		if (!new)
-			break ;
-		printf("criou mesmo o node\n");
+		nbr = ft_atoi(split[i]);
+		new = new_node(nbr);
 		stack_addback(stack, new);
-		printf("adicionou o node\n");
 		i++;
 	}
-	printf("saiu do loop do assemble\n");
-	return (*stack);
 }
 
-void	ps_free(char **split)
+void	initialize_stack(t_stack *stack_a)
 {
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-	return ;
+	stack_a->size = 0;
+	stack_a->head = NULL;
+	stack_a->tail = NULL;
 }
 
-t_stack	make_stack(char **argv)
+t_stack	make_stack(int argc, char **argv)
 {
-	t_stack	stack_a; 
+	t_stack stack;
 	char	**split;
 	int		i;
-	
-	i = 1;
-	while (argv[i])
+
+	initialize_stack(&stack);
+	if (argc == 1 || !is_valid(argc, argv))
 	{
-		printf("entrou no loop do make\n");
-		split = ft_split(argv[i], ' ');
-		printf("fez split\n");
-		stack_a = assemble_stack(split, &stack_a);
-		printf("fez assemble\n");
-		ps_free(split);
-		i++;
+		clear_stack(&stack);
+		return (stack);
 	}
-	return (stack_a);
+	i = 0;
+	while (++i < argc)
+	{
+		split = ft_split(argv[i], ' ');
+		if (!split)
+			clear_stack(&stack);
+		assemble_stack(split, &stack);
+		ps_free(split);
+	}
+	if (!check_dup(&stack))
+		clear_stack(&stack);
+	return (stack);
 }

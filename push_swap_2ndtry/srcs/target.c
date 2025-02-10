@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   target.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miovu <miovu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chillhoneyyy <chillhoneyyy@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:49:02 by miovu             #+#    #+#             */
-/*   Updated: 2025/02/06 19:54:44 by miovu            ###   ########.fr       */
+/*   Updated: 2025/02/08 16:09:17 by chillhoneyy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_node *highest_node(t_stack *stack)
 	return (highest);
 }
 
-void	target_node(t_stack *stack_a, t_stack *stack_b)
+void	target_a(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*temp_a;
 	t_node	*temp_b;
@@ -86,5 +86,34 @@ void	target_node(t_stack *stack_a, t_stack *stack_b)
 		if (small == LONG_MIN)
 			temp_a->target = highest_node(stack_b);
 		temp_a = temp_a->next;
+	}
+}
+
+void	target_b(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*temp_a;
+	t_node	*temp_b;
+	long	big;
+
+	if (!stack_a->head || !stack_b->head)
+		return;
+	temp_b = stack_b->head;
+	while (temp_b)
+	{
+		big = LONG_MAX;
+		temp_a = stack_a->head;
+		while (temp_a)
+		{
+			if (temp_b->content < temp_a->content
+				&& big > temp_a->content)
+			{
+				big = temp_a->content;
+				temp_b->target = temp_a;
+			}
+			temp_a = temp_a->next;
+		}
+		if (big == LONG_MAX)
+			temp_b->target = smallest_node(stack_a);
+		temp_b = temp_b->next;
 	}
 }

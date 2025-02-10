@@ -4,7 +4,7 @@ CC = cc
 CFALGS = -Wall -Werror -Wextra -g
 
 SOURCES_FILES = stack.c push_swap.c checkers.c rules.c quick_sort.c \
-				target.c sort.c
+				target.c sort.c costs.c
 				
 SRC = $(addprefix $(SRC_DIR)/, $(SOURCES_FILES))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miovu <miovu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chillhoneyyy <chillhoneyyy@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 17:37:19 by miovu             #+#    #+#             */
-/*   Updated: 2025/02/06 19:12:53 by miovu            ###   ########.fr       */
+/*   Updated: 2025/02/10 00:40:02 by chillhoneyy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_node
 {
 	int				content;
 	int				index;
+	int				cost;
 	struct s_node 	*target;
 	struct s_node	*next;
 	struct s_node	*prev;
@@ -72,11 +73,14 @@ void	sort_two(t_stack *stack);
 //target
 t_node *smallest_node(t_stack *stack);
 t_node *highest_node(t_stack *stack);
-void	target_node(t_stack *stack_a, t_stack *stack_b);
+void	target_a(t_stack *stack_a, t_stack *stack_b);
+void	target_b(t_stack *stack_a, t_stack *stack_b);
 //sort
 void	sort_stack(t_stack *stack_a, t_stack *stack_b);
+//costs
+void    index_value(t_stack *stack);
 //pushswap
-void	print_list(t_stack *stack, char	which);
+void	print_list(t_stack *stack, char	id);
 void	ps_free(char **split);
 int		main(int argc, char **argv);
 #endif

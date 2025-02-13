@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   target.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillhoneyyy <chillhoneyyy@student.42.f    +#+  +:+       +#+        */
+/*   By: miovu <miovu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/06 15:49:02 by miovu             #+#    #+#             */
-/*   Updated: 2025/02/08 16:09:17 by chillhoneyy      ###   ########.fr       */
+/*   Created: 2025/02/06 15:52:49 by miovu             #+#    #+#             */
+/*   Updated: 2025/02/10 19:21:56 by miovu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-t_node *smallest_node(t_stack *stack)
+t_node	*smallest_node(t_stack *stack)
 {
 	t_node	*temp;
 	t_node	*smallest;
 	int		small;
-	
+
 	smallest = stack->head;
 	small = stack->head->content;
 	if (!stack->head)
@@ -36,12 +36,12 @@ t_node *smallest_node(t_stack *stack)
 	return (smallest);
 }
 
-t_node *highest_node(t_stack *stack)
+t_node	*highest_node(t_stack *stack)
 {
 	t_node	*temp;
 	t_node	*highest;
 	int		high;
-	
+
 	highest = stack->head;
 	high = stack->head->content;
 	if (!stack->head)
@@ -64,14 +64,14 @@ void	target_a(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*temp_a;
 	t_node	*temp_b;
-	long	small;
-	
+	int		small;
+
 	if (!stack_a->head || !stack_b->head)
 		return ;
 	temp_a = stack_a->head;
 	while (temp_a)
 	{
-		small = LONG_MIN;
+		small = INT_MIN;
 		temp_b = stack_b->head;
 		while (temp_b)
 		{
@@ -83,7 +83,7 @@ void	target_a(t_stack *stack_a, t_stack *stack_b)
 			}
 			temp_b = temp_b->next;
 		}
-		if (small == LONG_MIN)
+		if (small == INT_MIN)
 			temp_a->target = highest_node(stack_b);
 		temp_a = temp_a->next;
 	}
@@ -93,14 +93,14 @@ void	target_b(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*temp_a;
 	t_node	*temp_b;
-	long	big;
+	int		big;
 
 	if (!stack_a->head || !stack_b->head)
-		return;
+		return ;
 	temp_b = stack_b->head;
 	while (temp_b)
 	{
-		big = LONG_MAX;
+		big = INT_MAX;
 		temp_a = stack_a->head;
 		while (temp_a)
 		{
@@ -112,7 +112,7 @@ void	target_b(t_stack *stack_a, t_stack *stack_b)
 			}
 			temp_a = temp_a->next;
 		}
-		if (big == LONG_MAX)
+		if (big == INT_MAX)
 			temp_b->target = smallest_node(stack_a);
 		temp_b = temp_b->next;
 	}

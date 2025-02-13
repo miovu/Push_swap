@@ -3,51 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   costs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillhoneyyy <chillhoneyyy@student.42.f    +#+  +:+       +#+        */
+/*   By: miovu <miovu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 23:58:20 by chillhoneyy       #+#    #+#             */
-/*   Updated: 2025/02/10 00:42:33 by chillhoneyy      ###   ########.fr       */
+/*   Created: 2025/02/06 15:52:49 by miovu             #+#    #+#             */
+/*   Updated: 2025/02/13 17:43:11 by miovu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//header
-
 #include "../push_swap.h"
 
-void    index_value(t_stack *stack)
+void	index_value(t_stack *stack)
 {
-    t_node  *temp;
-    int     i;
+	t_node	*temp;
+	int		i;
 
-    if (!stack->head)
-        return ;
-    temp = stack->head;
-    i = 1;
-    while (temp)
-    {
-        temp->index = i;
-        temp = temp->next;
-        i++;
-    }
+	if (!stack->head)
+		return ;
+	temp = stack->head;
+	i = 0;
+	while (temp)
+	{
+		temp->index = i;
+		temp = temp->next;
+		i++;
+	}
 }
 
-void    operation_cost(t_stack *stack_a, t_stack *stack_b)
+void	cost_operation(t_stack *from, t_stack *to)
 {
-    int cost_rr;
-    int cost_rrr;
-    int a_up_b_down;
-    int a_down_b_up;
-    t_node  *temp_a;
-    t_node  *temp_b;
+	t_node	*temp;
 
-    temp_a = stack_a->head;
-    while (temp_a)
-    {
-        cost_rr = max(temp_a->index, temp_a->target->index);
-        cost_rr = max ((stack_a->size - temp_a->index), (stack_b->size - temp_b->index));
-        a_up_b_down = temp_a->index + (stack_b->size - temp_b->index);
-        a_down_b_up = (stack_a->size - temp_a->index) + temp_b->index;
-        temp_a->cost = min(cost_rr, min(cost_rr, min(a_up_b_down, min(a_down_b_up))));
-        temp_a = temp_a->next;
-    }
+	temp = from->head;
+	while (temp)
+	{
+		if (temp->index < (from->size / 2))
+			temp->cost = temp->index;
+		else
+			temp->cost = (from->size - temp->index);
+		if (temp->target->index < (to->size / 2))
+			temp->cost += temp->target->index;
+		else
+			temp->cost += (to->size - temp->target->index);
+		temp = temp->next;
+	}
 }

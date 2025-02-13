@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moves.c                                            :+:      :+:    :+:   */
+/*   quick_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miovu <miovu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:39:30 by miovu             #+#    #+#             */
-/*   Updated: 2025/02/06 15:47:47 by miovu            ###   ########.fr       */
+/*   Updated: 2025/02/11 16:38:27 by miovu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,28 @@ bool	sorted_stack(t_stack *stack)
 
 void	sort_three(t_stack *stack)
 {
-	if (stack->head->content < stack->head->next->content 
+	if (stack->head->content < stack->head->next->content
 		&& stack->head->next->content > stack->tail->content
 		&& stack->head->content < stack->tail->content)
 	{
 		reverse_rotate(stack, 'a', 1);
 		swap_nodes(stack, 'a', 1);
 	}
-	else if (stack->head->content < stack->head->next->content 
+	else if (stack->head->content < stack->head->next->content
 		&& stack->head->next->content > stack->tail->content
 		&& stack->head->content > stack->tail->content)
 		reverse_rotate(stack, 'a', 1);
-	else if (stack->head->content > stack->head->next->content 
+	else if (stack->head->content > stack->head->next->content
 		&& stack->head->next->content < stack->tail->content
 		&& stack->head->content < stack->tail->content)
-		swap_nodes(stack, 'a', 1);	
-	else if (stack->head->content > stack->head->next->content 
+		swap_nodes(stack, 'a', 1);
+	else if (stack->head->content > stack->head->next->content
 		&& stack->head->next->content > stack->tail->content)
 	{
 		rotate_nodes(stack, 'a', 1);
 		swap_nodes(stack, 'a', 1);
 	}
-	else if (stack->head->content > stack->head->next->content 
+	else if (stack->head->content > stack->head->next->content
 		&& stack->head->next->content < stack->tail->content
 		&& stack->head->content > stack->tail->content)
 		rotate_nodes(stack, 'a', 1);

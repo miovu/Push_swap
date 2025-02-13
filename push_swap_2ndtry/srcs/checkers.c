@@ -6,7 +6,7 @@
 /*   By: miovu <miovu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:11:40 by miovu             #+#    #+#             */
-/*   Updated: 2025/02/05 19:53:38 by miovu            ###   ########.fr       */
+/*   Updated: 2025/02/10 17:21:49 by miovu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	check_int(char *str)
 	while (*str)
 	{
 		if (!ft_isdigit((int)*str))
-			return(false);
+			return (false);
 		str++;
 	}
 	return (true);

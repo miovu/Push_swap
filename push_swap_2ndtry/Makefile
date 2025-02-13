@@ -3,8 +3,8 @@ NAME = pushswap
 CC = cc
 CFALGS = -Wall -Werror -Wextra -g
 
-SOURCES_FILES = stack.c push_swap.c checkers.c rules.c quick_sort.c \
-				target.c sort.c costs.c
+SOURCES_FILES = checkers.c costs.c moves.c push_swap.c quick_sort.c \
+				rules.c rules2.c sort.c stack.c stack2.c target.c \
 				
 SRC = $(addprefix $(SRC_DIR)/, $(SOURCES_FILES))
 
